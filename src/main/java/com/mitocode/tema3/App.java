@@ -6,19 +6,24 @@ public class App {
 		//PaisDAOImpl dao = new PaisDAOImpl();				
 		//Con Singleton correcto
 		
-		PaisDAOImpl dao = PaisDAOImpl.getInstance();
+		Runnable r = new Runnable(){
+
+			@Override
+			public void run() {
+				PaisDAOImpl dao = PaisDAOImpl.getInstance();
+				
+				for(Object obj : dao.getPaises()){
+					System.out.println(((Pais)obj).getNombre());
+				}				
+			}
+			
+		};		
 		
-		for(Object obj : dao.getPaises()){
-			System.out.println(((Pais)obj).getNombre());
-		}
+		Thread hilo1 = new Thread(r);
+		hilo1.start();
 		
-		for(Object obj : dao.getPaises()){
-			System.out.println(((Pais)obj).getNombre());
-		}
-		
-		PaisDAOImpl daoi = PaisDAOImpl.getInstance();
-		for(Object obj : daoi.getPaises()){
-			System.out.println(((Pais)obj).getNombre());
-		}
+		Thread hilo2 = new Thread(r);
+		hilo2.start();
+				
 	}
 }

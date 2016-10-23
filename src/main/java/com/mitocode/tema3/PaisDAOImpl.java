@@ -13,9 +13,12 @@ public class PaisDAOImpl {
 	}
 	
 	public static PaisDAOImpl getInstance(){
-		if(instancia == null){
-			instancia = new PaisDAOImpl();
-		}
+		synchronized (App.class) {
+			if(instancia == null){
+				instancia = new PaisDAOImpl();
+				System.out.println("Se ha creado una instancia");
+			}	
+		}		
 		return instancia;
 	}	
 
